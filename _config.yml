@@ -3,7 +3,7 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               Stochastic Stuff by Pavel Dmytrenko
+title:               Stochastic Stuff
 tagline:             ''
 url:                 http://pavdmyt.com/
 description:         'A place for Python, Math and maybe Science Fiction.'
