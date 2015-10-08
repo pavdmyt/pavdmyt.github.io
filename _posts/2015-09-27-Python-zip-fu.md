@@ -26,6 +26,8 @@ As an example, lets consider iteration over two lists:
 ('blue', 144)
 {% endhighlight %}
 
+<!--more-->
+
 As you might have noticed, example code produced exactly 3 tuples. This is equal to the length of the shortest input sequence, i.e. `colors`. Such behavior is acceptable when we don't care about trailing, unmatched values from the longer sequences. Otherwise, usage of `itertools.zip_longest()` should be considered (*Python 3 only*).
 
 Well, you say that's great, but where begins the real power of `zip`? It begins when using `zip` in conjunction with the `*` operator.

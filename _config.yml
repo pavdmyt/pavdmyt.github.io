@@ -19,3 +19,5 @@ version:             1.0.0
 
 github:
   repo:              https://github.com/pavdmyt/pavdmyt.github.io
+
+excerpt_separator:   <!--more-->

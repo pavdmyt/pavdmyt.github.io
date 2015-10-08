@@ -15,6 +15,8 @@ The series in the exponent can be represented as a *list comprehension*:
 [math.log(k) for k in range(1, x + 1)]
 {% endhighlight %}
 
+<!--more-->
+
 For the final solution let's find a `sum` of the series and put it inside `math.exp()`: 
 
 {% highlight python %}

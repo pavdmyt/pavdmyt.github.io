@@ -375,3 +375,8 @@ a.sidebar-nav-item:focus {
     margin: 0 auto;
     display: block;
 }
+
+.continue-reading:hover {
+    text-decoration: none;
+    font-size: 103%;
+}
