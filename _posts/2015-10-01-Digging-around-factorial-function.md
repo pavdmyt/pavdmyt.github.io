@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Digging around factorial function
+tags: python math algorithms
 comments: true
 permalink: digging-around-factorial-function
 ---

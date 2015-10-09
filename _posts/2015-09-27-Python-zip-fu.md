@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Python zip( ) Fu
+tags: python
 comments: true
 permalink: python-zip-fu
 ---

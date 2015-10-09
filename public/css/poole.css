@@ -18,7 +18,6 @@
  *
  * Update the foundational and global aspects of the page.
  */
-
 * {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -52,9 +51,8 @@ a {
   color: #268bd2;
   text-decoration: none;
 }
-/* `:focus` is linked to `:hover` for basic accessibility */
-a:hover,
-a:focus {
+
+a:hover {
   text-decoration: underline;
 }
 
@@ -168,7 +166,6 @@ img {
  *
  * Center the page content.
  */
-
 .container {
   max-width: 38rem;
   padding-left:  1rem;
@@ -183,7 +180,6 @@ img {
  *
  * Super small header above the content for site name and short description.
  */
-
 .masthead {
   padding-top:    1rem;
   padding-bottom: 1rem;
@@ -211,7 +207,6 @@ img {
  * Each post is wrapped in `.post` and is used on default and post layouts. Each
  * page is wrapped in `.page` and is only used on the page layout.
  */
-
 .post {
   margin-bottom: 4em;
 }
@@ -242,7 +237,6 @@ img {
  * Super lightweight (HTML-wise) blog pagination. `span`s are provide for when
  * there are no more previous or next posts to show.
  */
-
 .pagination {
   overflow: hidden; /* clearfix */
   margin-left: -1rem;
@@ -263,7 +257,6 @@ img {
 }
 
 /* Only provide a hover state for linked pagination items */
-
 @media (min-width: 30em) {.pagination {
     margin: 3rem 0;
   }
