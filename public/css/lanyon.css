@@ -357,9 +357,18 @@ a.sidebar-nav-item:focus {
     display: block;
 }
 
+.continue-reading {
+  color: Crimson;
+}
+
 .continue-reading:hover {
     text-decoration: none;
     font-size: 103%;
+}
+
+.archive-date {
+  font-size: 17px;
+  color: #9a9a9a;
 }
 
 /*Tags*/
@@ -378,7 +387,7 @@ a.sidebar-nav-item:focus {
   font: 15px/1.5 'PT Sans', serif;
   background: #eee;
   border-radius: 3px 0 0 3px;
-  color: #999;
+  color: #92B5F2;
   display: inline-block;
   height: 26px;
   line-height: 26px;
@@ -387,6 +396,10 @@ a.sidebar-nav-item:focus {
   margin: 0 10px 10px 0;
   text-decoration: none;
   -webkit-transition: color 0.2s;
+}
+
+.tag-archive-font {
+  font-size: 13px;
 }
 
 .tag::before {
