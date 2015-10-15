@@ -6,6 +6,8 @@ comments: true
 permalink: how-to-implement-tags-at-jekyll-website
 ---
 
+![ear tag](/public/images/tags_from_scratch/Calf_with_eartag.jpg){: .center-image }
+
 Recently I have finished adding tagging infrastructure into this website. That's was a bit tricky since Jekyll does not fully support this feature from the box. It is possible to add tags into the post's [YAML front matter](http://jekyllrb.com/docs/frontmatter/) and then access them using [page varialbes](http://jekyllrb.com/docs/variables/#page-variables) via `page.tags`. However, there are no built-in means to generate *tags page* which collects all tags from the posts, sorts them alphabetically and builds a list of the posts assigned to every tag. Let's take a look at one possible way to implement described functionality.
 
 <!--more-->
@@ -140,3 +142,12 @@ Wrapping Up
 -----------
 
 That's all we need! Feel free to dig around [source code](https://github.com/pavdmyt/pavdmyt.github.io) to understand how *tags* are implemented here.
+
+<div style="font-size: 15px;">
+  <i>Header image is a resized
+    <a href="https://www.flickr.com/photos/dcysurfer/5490805281/">Photo by Dave Young</a>, 
+  available under a
+    <a href="https://en.wikipedia.org/wiki/Creative_Commons">Creative Commons</a>
+    <a href="https://creativecommons.org/licenses/by/2.0/deed.en">Attribution 2.0 Generic</a>
+  license.</i>
+</div>
