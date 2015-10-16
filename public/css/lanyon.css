@@ -77,6 +77,9 @@ h1, h2, h3 {
 .masthead-title a {
   color: #505050;
 }
+.masthead-link:hover {
+    color: #151515;
+}
 .masthead-title small {
   font-size: 75%;
   font-weight: 400;
@@ -275,6 +278,9 @@ a.sidebar-nav-item:focus {
 .post-title {
   margin-top: 0;
 }
+.post-title:hover a {
+    color: #656565;
+}
 
 /* Meta data line below post title */
 .post-date {
@@ -412,11 +418,11 @@ a.sidebar-nav-item:focus {
 }
 
 .continue-reading {
-  color: Crimson;
+  color: #f05422;
 }
 
 .continue-reading:hover {
-    text-decoration: none;
+    color: #f05422;
     font-size: 103%;
 }
 
@@ -439,9 +445,9 @@ a.sidebar-nav-item:focus {
 
 .tag {
   font: 15px/1.5 'PT Sans', serif;
-  background: #eee;
+  background: #767676;
   border-radius: 3px 0 0 3px;
-  color: #92B5F2;
+  color: #FFFFFF;
   display: inline-block;
   height: 26px;
   line-height: 26px;
@@ -471,7 +477,7 @@ a.sidebar-nav-item:focus {
 .tag::after {
   background: #fff;
   border-bottom: 13px solid transparent;
-  border-left: 10px solid #eee;
+  border-left: 10px solid #767676;
   border-top: 13px solid transparent;
   content: '';
   position: absolute;
@@ -480,11 +486,11 @@ a.sidebar-nav-item:focus {
 }
 
 .tag:hover {
-  background-color: #92B5F2;
+  background-color: #f05422;
   color: white;
   text-decoration: none;
 }
 
 .tag:hover::after {
-   border-left-color: #92B5F2;
+   border-left-color: #f05422;
 }
