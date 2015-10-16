@@ -20,7 +20,10 @@ title: Home
       <a href="{{ post.url }}" rel="bookmark" title="Permalink to {{ post.title }}">{{ post.title }}</a>
     </h1>
 
-    <span class="post-date">{{ post.date | date_to_long_string }}</span>
+    <span class="post-date">
+      <svg class="icon-calendar"></svg>
+      {{ post.date | date_to_long_string }}
+    </span>
 
     <!-- Excerpt -->
     {{ post.excerpt }}
