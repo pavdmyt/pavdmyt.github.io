@@ -78,7 +78,7 @@ h1, h2, h3 {
   color: #505050;
 }
 .masthead-link:hover {
-    color: #151515;
+  color: #151515;
 }
 .masthead-title small {
   font-size: 75%;
@@ -279,7 +279,7 @@ a.sidebar-nav-item:focus {
   margin-top: 0;
 }
 .post-title:hover a {
-    color: #656565;
+  color: #656565;
 }
 
 /* Meta data line below post title */
@@ -406,15 +406,15 @@ a.sidebar-nav-item:focus {
 /* ===Custom CSS=== */
 
 .copyright {
-    text-align: center;
-    margin-top: 20px;
-    padding-bottom: 30px;
-    font-size: 15px;
+  text-align: center;
+  margin-top: 20px;
+  padding-bottom: 30px;
+  font-size: 15px;
 }
 
 .center-image {
-    margin: 0 auto;
-    display: block;
+  margin: 0 auto;
+  display: block;
 }
 
 .continue-reading {
@@ -422,8 +422,8 @@ a.sidebar-nav-item:focus {
 }
 
 .continue-reading:hover {
-    color: #f05422;
-    font-size: 103%;
+  color: #f05422;
+  font-size: 103%;
 }
 
 .archive-date {
@@ -492,5 +492,5 @@ a.sidebar-nav-item:focus {
 }
 
 .tag:hover::after {
-   border-left-color: #f05422;
+  border-left-color: #f05422;
 }
