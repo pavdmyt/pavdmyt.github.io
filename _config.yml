@@ -7,7 +7,7 @@ title:               Stochastic Stuff
 tagline:             ''
 url:                 http://pavdmyt.com/
 description:         'A place for Python, Math and maybe Science Fiction.'
-paginate:            3
+paginate:            10
 
 # About/contact
 author:
