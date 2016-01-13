@@ -4,8 +4,12 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   <!-- Additional meta info -->
+  {% if page.description %}
+    <meta name="description" content="{{ page.description }}">
+  {% else %}
+    <meta name="description" content="Posts and writings by Pavel Dmytrenko">
+  {% endif %}
   <meta name="author" content="Pavel Dmytrenko">
-  <meta name="description" content="Posts and writings by Pavel Dmytrenko">
   <meta name="keywords" content="Python, Programming, Math, Algorithms">
 
   <!-- Enable responsiveness on mobile devices-->

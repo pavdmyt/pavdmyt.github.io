@@ -1,6 +1,7 @@
 ---
 layout: post
 title: How to implement Tags at Jekyll website
+description: Jekyll tags HOWTO. Adding tags to Jekyll website.
 tags: jekyll liquid blogging
 comments: true
 permalink: how-to-implement-tags-at-jekyll-website
@@ -145,7 +146,7 @@ That's all we need! Feel free to dig around [source code](https://github.com/pav
 
 <div style="font-size: 15px;">
   <i>Header image is a resized
-    <a href="https://www.flickr.com/photos/dcysurfer/5490805281/">Photo by Dave Young</a>, 
+    <a href="https://www.flickr.com/photos/dcysurfer/5490805281/">Photo by Dave Young</a>,
   available under a
     <a href="https://en.wikipedia.org/wiki/Creative_Commons">Creative Commons</a>
     <a href="https://creativecommons.org/licenses/by/2.0/deed.en">Attribution 2.0 Generic</a>

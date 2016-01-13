@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Digging around factorial function
+description: Fast factorial calculation in Python. Python factorial HOWTO tutorial.
 tags: python math algorithms
 comments: true
 permalink: digging-around-factorial-function
@@ -18,7 +19,7 @@ The series in the exponent can be represented as a *list comprehension*:
 
 <!--more-->
 
-For the final solution let's find a `sum` of the series and put it inside `math.exp()`: 
+For the final solution let's find a `sum` of the series and put it inside `math.exp()`:
 
 {% highlight python %}
 import math as m

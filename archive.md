@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Archive
+description: Stochastic stuff blog's archive. List of articles and posts.
 ---
 
 {% for post in site.posts %}

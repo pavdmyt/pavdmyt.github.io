@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Python zip( ) Fu
+description: Tutorial on usage of Python zip function. Python zip HOWTO examples and tricks.
 tags: python
 comments: true
 permalink: python-zip-fu
