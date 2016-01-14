@@ -13,6 +13,15 @@ Once I have found Project Euler's [website](https://projecteuler.net/) and start
 
 I think given examples may be helpful for Python beginners as mathematical nature of the problems assists in showing pure Python in action on the most abstract use cases. Solutions below contain examples of utilizing following Python concepts: *generators*, `lambda` *functions*, *slices*, `list` and `set` *comprehensions*.
 
+**Spoiler Warning**
+
+*Subsequent sections provide ready-made solutions. It is highly recommended to read the next sections only if the subject problems are already solved by you. Otherwise it may cost you lots of inspirations and "Aha!" moments.*
+
+> Real learning is an active process and seeing how it is done is a long way from experiencing that epiphany of discovery.
+
+<!--more-->
+
+
 *Jump to problem*:
 [1]({{ site.baseurl }}{{ page.url }}/#problem-1) |
 [2]({{ site.baseurl }}{{ page.url }}/#problem-2) |
@@ -24,8 +33,6 @@ I think given examples may be helpful for Python beginners as mathematical natur
 [8]({{ site.baseurl }}{{ page.url }}/#problem-8) |
 [9]({{ site.baseurl }}{{ page.url }}/#problem-9) |
 [10]({{ site.baseurl }}{{ page.url }}/#problem-10)
-
-<!--more-->
 
 
 Problem 1
