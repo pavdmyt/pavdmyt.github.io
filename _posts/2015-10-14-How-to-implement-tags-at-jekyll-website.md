@@ -5,6 +5,8 @@ description: Jekyll tags HOWTO. Adding tags to Jekyll website.
 tags: jekyll liquid blogging
 comments: true
 permalink: how-to-implement-tags-at-jekyll-website
+sitemap:
+  lastmod: 2015-10-14
 ---
 
 ![ear tag](/public/images/tags_from_scratch/Calf_with_eartag.jpg){: .center-image }

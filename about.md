@@ -2,6 +2,8 @@
 layout: page
 title: About
 description: About Page. Pavel Dmytrenko contact information -- email, twitter, github, linkedin.
+sitemap:
+  priority: 0.7
 ---
 
 

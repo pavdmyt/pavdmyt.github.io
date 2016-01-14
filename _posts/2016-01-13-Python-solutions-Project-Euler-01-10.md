@@ -5,6 +5,8 @@ description: Python code to solve Project Euler's first ten problems. Examples o
 tags: python math ProjectEuler algorithms
 comments: true
 permalink: python-solutions-project-euler-01-10
+sitemap:
+  lastmod: 2016-01-14
 ---
 
 ![pic tag](/public/images/pyEuler_1-10/pyler-min.jpg){: .center-image }

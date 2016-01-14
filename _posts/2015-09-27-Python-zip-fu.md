@@ -5,6 +5,8 @@ description: Tutorial on usage of Python zip function. Python zip HOWTO examples
 tags: python
 comments: true
 permalink: python-zip-fu
+sitemap:
+  lastmod: 2015-09-27
 ---
 
 In functional programming iterating over few things simultaneously is called "[zip](http://stackoverflow.com/a/1115570)". Python has built-in `zip` function for this. From the docs:

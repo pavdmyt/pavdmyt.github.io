@@ -5,6 +5,8 @@ description: Fast factorial calculation in Python. Python factorial HOWTO tutori
 tags: python math algorithms
 comments: true
 permalink: digging-around-factorial-function
+sitemap:
+  lastmod: 2015-10-01
 ---
 
 [Evolution of a Python programmer](https://gist.github.com/fmeyer/289467) is a brilliant example of Python code produced by people with different backgrounds to solve a mostly simple problem of finding a factorial of the given number. Unfortunately it lacks solution which might be hypothetically produced by mathematician. Let's add some entropy to the Universe and implement a weird factorial calculation using exponential function and logarithms:
