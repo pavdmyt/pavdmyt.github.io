@@ -6,12 +6,12 @@ tags: python math ProjectEuler algorithms
 comments: true
 permalink: python-solutions-project-euler-01-10
 sitemap:
-  lastmod: 2016-01-14
+  lastmod: 2016-01-15
 ---
 
 ![pic tag](/public/images/pyEuler_1-10/pyler-min.jpg){: .center-image }
 
-Once I have found Project Euler's [website](https://projecteuler.net/) and started writing scripts to solve [proposed problems](http://static.projecteuler.net/). I'm not a regular visitor there, but over time a small collection of solutions has emerged. So, I decided to put results in order, push them to [GitHub](https://github.com/pavdmyt/project-euler) and share here a Python solutions for the first ten problems.
+Once I have found [Project Euler's website](https://projecteuler.net/) and started writing scripts to solve [proposed problems](http://static.projecteuler.net/). I'm not a regular visitor there, but over time a small collection of solutions has emerged. So, I decided to put results in order, push them to [GitHub](https://github.com/pavdmyt/project-euler) and share here a Python solutions for the first ten problems.
 
 I think given examples may be helpful for Python beginners as mathematical nature of the problems assists in showing pure Python in action on the most abstract use cases. Solutions below contain examples of utilizing following Python concepts: *generators*, `lambda` *functions*, *slices*, `list` and `set` *comprehensions*.
 
@@ -132,7 +132,7 @@ def prime_factors(num):
     return factors
 {% endhighlight %}
 
-Explanation on how and why this works can be found [here](http://www.geeksforgeeks.org/print-all-prime-factors-of-a-given-number/).
+Here is an [explanation](http://www.geeksforgeeks.org/print-all-prime-factors-of-a-given-number/) of the implemented algorithm.
 
 Now, having all prime factors, it's easy enough to find the largest one:
 
@@ -516,7 +516,7 @@ def sieve_Erat(num):
     return [i for i in range(2, num + 1) if sieve[i]]
 {% endhighlight %}
 
-Here *list slice* notation is used to speed up the process. It can be further improved by skipping *even numbers* in all loops, etc. But it's not done for the sake of simplicity. Fast sieve implementations in Python (and much more complex ones) can be found [here](http://stackoverflow.com/a/2068548).
+Here *list slice* notation is used to speed up the process. It can be further improved by skipping *even numbers* in all loops, etc. But it's not done for the sake of simplicity. Check [fast sieve implementations in Python](http://stackoverflow.com/a/2068548) if you want to challenge yourself.
 
 Finally:
 

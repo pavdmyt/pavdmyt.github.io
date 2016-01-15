@@ -6,7 +6,7 @@ tags: python math algorithms
 comments: true
 permalink: digging-around-factorial-function
 sitemap:
-  lastmod: 2015-10-01
+  lastmod: 2016-01-15
 ---
 
 [Evolution of a Python programmer](https://gist.github.com/fmeyer/289467) is a brilliant example of Python code produced by people with different backgrounds to solve a mostly simple problem of finding a factorial of the given number. Unfortunately it lacks solution which might be hypothetically produced by mathematician. Let's add some entropy to the Universe and implement a weird factorial calculation using exponential function and logarithms:
@@ -110,4 +110,4 @@ def fast_fact(x):
 
 Now our hypothetical mathematician can be satisfied.
 
-*All code from the article is available [here](https://gist.github.com/pavdmyt/3b99e9b499289e072a48).*
+*All code from the article is available here:* [some_factorials.py](https://gist.github.com/pavdmyt/3b99e9b499289e072a48).

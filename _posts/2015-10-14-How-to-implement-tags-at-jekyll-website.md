@@ -6,7 +6,7 @@ tags: jekyll liquid blogging
 comments: true
 permalink: how-to-implement-tags-at-jekyll-website
 sitemap:
-  lastmod: 2015-10-14
+  lastmod: 2016-01-15
 ---
 
 ![ear tag](/public/images/tags_from_scratch/Calf_with_eartag.jpg){: .center-image }
@@ -18,7 +18,7 @@ Recently I have finished adding tagging infrastructure into this website. That's
 Creating Tags boilerplate
 -------------------------
 
-First, let's decide how our tags will look and feel. I've chosen tags CSS from [here](http://codepen.io/wbeeftink/pen/dIaDH). Let's add them to our site's CSS. HTML part contains example on how to add a single tag or a list of tags to the page. Let's grab it and modify a bit using Jekyll templating language - [Liquid](https://github.com/Shopify/liquid/wiki). I want to see tags at both *index page* and at each *post page*, so I added following code snippets:
+First, let's decide how our tags will look and feel. I've chosen [CSS tags by Wouter Beeftink](http://codepen.io/wbeeftink/pen/dIaDH). Let's add them to our site's CSS. HTML part contains example on how to add a single tag or a list of tags to the page. Let's grab it and modify a bit using Jekyll templating language - [Liquid](https://github.com/Shopify/liquid/wiki). I want to see tags at both *index page* and at each *post page*, so I added following code snippets:
 
 ### index.html
 {% highlight html %}
@@ -75,7 +75,7 @@ Our *tags page* should:
 
 As an example look here: <http://pavdmyt.com/tags/>.
 
-This task requires some advanced knowledge of Liquid. But fortunately I found [this](http://blog.lanyonm.org/articles/2013/11/21/alphabetize-jekyll-page-tags-pure-liquid.html) article, which helped me a lot. I modified provided example for my needs, but main logic remains the same. So, basically our *tags.md* consists from 3 parts:
+This task requires some advanced knowledge of Liquid. But fortunately I found this [article](http://blog.lanyonm.org/articles/2013/11/21/alphabetize-jekyll-page-tags-pure-liquid.html), which helped me a lot. I modified provided example for my needs, but main logic remains the same. So, basically our *tags.md* consists from 3 parts:
 
 * Building a sorted array of the *tag names*.
 
@@ -139,7 +139,7 @@ to the `site_tags` variable. -->
 {% endraw %}
 {% endhighlight %}
 
-More details and explanations could be found in the mentioned [article](http://blog.lanyonm.org/articles/2013/11/21/alphabetize-jekyll-page-tags-pure-liquid.html). A good reference on Liquid *tags* and *filters* available in [Liquid for Designers](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers). Jekyll-specific Liquid *tags* and *filters* described [here](http://jekyllrb.com/docs/templates/).
+More details and explanations could be found in the mentioned [article](http://blog.lanyonm.org/articles/2013/11/21/alphabetize-jekyll-page-tags-pure-liquid.html). A good reference on Liquid *tags* and *filters* available in [Liquid for Designers](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers). Jekyll-specific Liquid *tags* and *filters* described in [Jekyll docs](http://jekyllrb.com/docs/templates/).
 
 Wrapping Up
 -----------

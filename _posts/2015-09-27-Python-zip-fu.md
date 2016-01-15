@@ -6,7 +6,7 @@ tags: python
 comments: true
 permalink: python-zip-fu
 sitemap:
-  lastmod: 2015-09-27
+  lastmod: 2016-01-15
 ---
 
 In functional programming iterating over few things simultaneously is called "[zip](http://stackoverflow.com/a/1115570)". Python has built-in `zip` function for this. From the docs:
@@ -96,7 +96,7 @@ Utilizing this property and what we have learned about `zip`, let's solve few pr
 [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
 {% endhighlight %}
 
-Last is difficult at glance. A good explanation of what is actually happening could be found [here](http://stackoverflow.com/a/2233247). In short, the above code snippet is the same as:
+Last is difficult at glance. Here is a [good explanation](http://stackoverflow.com/a/2233247) of what is actually happening. In short, the above code snippet is the same as:
 
 {% highlight pycon %}
 >>> x = iter(range(1, 10))
@@ -131,4 +131,4 @@ Don't forget that `dict` keys should be *hashable* values because basically `dic
 Summary
 -------
 
-Python built-in `zip` function helps to iterate over few sequences in parallel. Combined with *unpacking* and different list manipulation techniques like *slicing* and *comprehensions* it becomes a really handy tool. Moreover, combined with other functional programming tools like `lambda` expressions and `map` function it facilitates creation of readable code avoiding excessive usage of loop constructs. A good example could be found [here](https://bradmontgomery.net/blog/2013/04/01/pythons-zip-map-and-lambda/).
+Python built-in `zip` function helps to iterate over few sequences in parallel. Combined with *unpacking* and different list manipulation techniques like *slicing* and *comprehensions* it becomes a really handy tool. Moreover, combined with other functional programming tools like `lambda` expressions and `map` function it facilitates creation of readable code avoiding excessive usage of loop constructs. A good example could be found here: [Python's zip, map, and lambda](https://bradmontgomery.net/blog/2013/04/01/pythons-zip-map-and-lambda/).
