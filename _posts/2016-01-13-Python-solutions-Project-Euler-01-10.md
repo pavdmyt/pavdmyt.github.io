@@ -9,7 +9,7 @@ sitemap:
   lastmod: 2016-01-15
 ---
 
-![pic tag](/public/images/pyEuler_1-10/pyler-min.jpg){: .center-image }
+![pic tag](/public/images/pyler-min.jpg){: .center-image }
 
 Once I have found [Project Euler's website](https://projecteuler.net/) and started writing scripts to solve [proposed problems](http://static.projecteuler.net/). I'm not a regular visitor there, but over time a small collection of solutions has emerged. So, I decided to put results in order, push them to [GitHub](https://github.com/pavdmyt/project-euler) and share here a Python solutions for the first ten problems.
 

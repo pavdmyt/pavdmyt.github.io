@@ -11,7 +11,7 @@ sitemap:
 
 [Evolution of a Python programmer](https://gist.github.com/fmeyer/289467) is a brilliant example of Python code produced by people with different backgrounds to solve a mostly simple problem of finding a factorial of the given number. Unfortunately it lacks solution which might be hypothetically produced by mathematician. Let's add some entropy to the Universe and implement a weird factorial calculation using exponential function and logarithms:
 
-![analytical expression](/public/images/factorial/math_fla.jpg){: .center-image }
+![analytical expression](/public/images/math_fla.jpg){: .center-image }
 
 The series in the exponent can be represented as a *list comprehension*:
 
@@ -31,11 +31,11 @@ def fact(x):
 
 But unfortunately, such calculation provides distorted results. We are dealing here with floating-point numbers, this results in the [issues and limitations](https://docs.python.org/3/tutorial/floatingpoint.html) which are caused by the fact that floating-point numbers are represented in computer hardware as base 2 (binary) fractions. Let's `import math as m` and examine the output:
 
-![ipython session](/public/images/factorial/ipython_run.jpg)
+![ipython session](/public/images/ipython_run.jpg)
 
 As can be seen there is a lot of ugliness after the decimal point. It is not allowable for our hypothetical mathematician! Moreover, our weird implementation is much more slower than the common iterative factorial function:
 
-![ipython timeit](/public/images/factorial/ipython_timeit.jpg)
+![ipython timeit](/public/images/ipython_timeit.jpg)
 
 Let's fix the situation and try to write the function that calculates factorial of the given number and which is faster then the common iterative implementation. Recursive implementation is not considered because recursion in Python requires the allocation of a new stack frame and thus (in general) slower.
 
@@ -106,7 +106,7 @@ def fast_fact(x):
 
 [Article](https://sites.google.com/site/examath/research/factorials) also mentions another method to handle *odd* numbers but we will not implement it since this makes solution more complicated and clarity also suffers. Now, let's `timeit` against iterative factorial from the first part of our investigation:
 
-![ipython timeit](/public/images/factorial/ipython_timeit2.jpg)
+![ipython timeit](/public/images/ipython_timeit2.jpg)
 
 Now our hypothetical mathematician can be satisfied.
 
