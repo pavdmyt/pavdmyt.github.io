@@ -6,25 +6,24 @@ sitemap:
 
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-
- <title>{{ site.title }}</title>
- <link href="{{ site.url }}{{ site.baseurl }}/atom.xml" rel="self"/>
- <link href="{{ site.url }}{{ site.baseurl }}/"/>
- <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>{{ site.url }}</id>
- <author>
-   <name>{{ site.author.name }}</name>
-   <email>{{ site.author.email }}</email>
- </author>
-
- {% for post in site.posts %}
- <entry>
-   <title>{{ post.title }}</title>
-   <link href="{{ site.url }}{{ post.url }}"/>
-   <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>{{ site.url }}{{ site.baseurl }}{{ post.id }}</id>
-   <content type="html">{{ post.content | xml_escape }}</content>
- </entry>
- {% endfor %}
-
+  <title type="text" xml:lang="en">{{ site.title }} by Pavel Dmytrenko</title>
+  <link type="application/atom+xml" href="{{ site.url }}/atom.xml" rel="self"/>
+  <link href="{{ site.url }}/"/>
+  <id>{{ site.url }}/</id>
+  <updated>{{ site.time | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>
+  <author>
+    <name>{{ site.author.name }}</name>
+    <email>{{ site.author.email }}</email>
+  </author>
+  <rights type="text">Copyright © {{ site.time | date: "%Y" }} {{ site.author.name }}. All rights reserved.</rights>
+  {% for post in site.posts limit:10 %}
+    <entry>
+      <title type="text">{{ post.title | xml_escape }}</title>
+      <link rel="alternate" type="text/html" href="{{ site.url }}{{ post.url }}"/>
+      <id>{{ site.url }}{{ post.id }}</id>
+      <published>{{ post.date | date: "%Y-%m-%dT%H:%M:%SZ" }}</published>
+      <updated>{{ post.date | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>
+      <content type="html">{{ post.content | xml_escape }}</content>
+    </entry>
+  {% endfor %}
 </feed>

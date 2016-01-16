@@ -12,6 +12,7 @@ paginate:            10
 # About/contact
 author:
   name:              'Pavel Dmytrenko'
+  email:             'mail@pavdmyt.com'
   url:               ''
 
 # Custom vars
