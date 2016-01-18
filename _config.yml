@@ -14,6 +14,8 @@ author:
   name:              'Pavel Dmytrenko'
   email:             'mail@pavdmyt.com'
   url:               ''
+  github:            'https://github.com/pavdmyt'
+  twitter:           'https://twitter.com/pavdmyt'
 
 # Custom vars
 version:             1.0.0
