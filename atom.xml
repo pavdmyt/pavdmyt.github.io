@@ -11,14 +11,17 @@ sitemap:
   <link href="{{ site.url }}/"/>
   <id>{{ site.url }}/</id>
   <updated>{{ site.time | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>
-  <author>
-    <name>{{ site.author.name }}</name>
-    <email>{{ site.author.email }}</email>
-  </author>
   <rights type="text">Copyright © {{ site.time | date: "%Y" }} {{ site.author.name }}. All rights reserved.</rights>
   {% for post in site.posts limit:10 %}
     <entry>
+      <author>
+        <name>{{ site.author.name }}</name>
+        <email>{{ site.author.email }}</email>
+      </author>
       <title type="text">{{ post.title | xml_escape }}</title>
+      {% for tag in post.tags %}
+        <category term="{{ tag }}"/>
+      {% endfor %}
       <link rel="alternate" type="text/html" href="{{ site.url }}{{ post.url }}"/>
       <id>{{ site.url }}{{ post.id }}</id>
       <published>{{ post.date | date: "%Y-%m-%dT%H:%M:%SZ" }}</published>
