@@ -24,3 +24,11 @@ github:
   repo:              https://github.com/pavdmyt/pavdmyt.github.io
 
 excerpt_separator:   <!--more-->
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.md
+  - Makefile
+  - README.md
+  - output
