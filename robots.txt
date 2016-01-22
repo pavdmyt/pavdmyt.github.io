@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: http://pavdmyt.com/sitemap.xml
