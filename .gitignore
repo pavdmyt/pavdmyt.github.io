@@ -42,7 +42,6 @@ node_modules
 bower_components
 _drafts
 output
+dist
 
 # My additions
-Gemfile*
-Makefile
