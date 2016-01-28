@@ -3,6 +3,21 @@
   
     
     <url>
+      <loc>http://pavdmyt.com/jekyll-dev-env-via-vagrant-and-puphpet/</loc>
+      
+        <lastmod>2016-01-28</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.7</priority>
+      
+    </url>
+    
+  
+    
+    <url>
       <loc>http://pavdmyt.com/python-solutions-project-euler-01-10/</loc>
       
         <lastmod>2016-01-15</lastmod>
@@ -68,7 +83,7 @@
     <url>
       <loc>http://pavdmyt.com/about/</loc>
       
-        <lastmod>2016-01-22T23:31:24+02:00</lastmod>
+        <lastmod>2016-01-28T15:48:22+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -83,7 +98,7 @@
     <url>
       <loc>http://pavdmyt.com/archive/</loc>
       
-        <lastmod>2016-01-22T23:31:24+02:00</lastmod>
+        <lastmod>2016-01-28T15:48:22+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -100,7 +115,7 @@
     <url>
       <loc>http://pavdmyt.com/</loc>
       
-        <lastmod>2016-01-22T23:31:24+02:00</lastmod>
+        <lastmod>2016-01-28T15:48:22+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -117,7 +132,7 @@
     <url>
       <loc>http://pavdmyt.com/tags/</loc>
       
-        <lastmod>2016-01-22T23:31:24+02:00</lastmod>
+        <lastmod>2016-01-28T15:48:22+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>

@@ -4,8 +4,217 @@
   <link type="application/atom+xml" href="http://pavdmyt.com/atom.xml" rel="self"/>
   <link href="http://pavdmyt.com/"/>
   <id>http://pavdmyt.com/</id>
-  <updated>2016-01-22T23:31:24Z</updated>
+  <updated>2016-01-28T15:48:22Z</updated>
   <rights type="text">Copyright © 2016 Pavel Dmytrenko. All rights reserved.</rights>
+  
+    <entry>
+      <author>
+        <name>Pavel Dmytrenko</name>
+        <email>mail@pavdmyt.com</email>
+      </author>
+      <title type="text">Jekyll development environment via Vagrant and PuPHPet</title>
+      
+        <category term="jekyll"/>
+      
+        <category term="vagrant"/>
+      
+        <category term="puphpet"/>
+      
+        <category term="blogging"/>
+      
+      <link rel="alternate" type="text/html" href="http://pavdmyt.com/jekyll-dev-env-via-vagrant-and-puphpet"/>
+      <id>http://pavdmyt.com/Jekyll-env-via-Vagrant-PuPHPet</id>
+      <published>2016-01-28T00:00:00Z</published>
+      <updated>2016-01-28T00:00:00Z</updated>
+      <content type="html">&lt;p&gt;It happened that I developed at both Linux and Windows machines. And as you may know, installing, building and maintaining development environments in such case is always a burden. Common solution is to keep your environment inside a virtual machine (VM). This prevents from polluting the hostbox with unnecessary software. Most importantly, we can set up our VM to mimic the production environment as closely as possible.&lt;/p&gt;
+
+&lt;p&gt;The traditional scenario of maintaining a development VM introduces a set of routines which we prefer to avoid. First, a lot of initial setup. Second, we can easily damage our setup by making some minor changes. Third, it is difficult to share pre-configured VMs because they occupy a couple of gigabytes. This is a time consuming and error-prone process…&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;We need a way to manage our development VMs and here comes &lt;a href=&quot;https://www.vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Vagrant lowers development environment setup time, increases development/production parity, and makes the “works on my machine” excuse a relic of the past.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Vagrant key advantages are in that it helps to automate the initial setup of a virtual machine, is available everywhere (Linux, Mac, Windows), and allows us to share VM settings by a single &lt;a href=&quot;https://www.vagrantup.com/docs/vagrantfile/&quot;&gt;&lt;code&gt;Vagrantfile&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Recently I managed to set up a development environment for this blog using Vagrant complemented with &lt;a href=&quot;https://puphpet.com/&quot;&gt;PuPHTet&lt;/a&gt;. PuPHPet is a web GUI for setting up VMs for our needs. It uses &lt;a href=&quot;https://puppetlabs.com/&quot;&gt;Puppet&lt;/a&gt; as the provisioning backend.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a look at some simple configuration steps to make our lives easier and development environments more consistent.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-we-need&quot;&gt;What we need&lt;/h2&gt;
+
+&lt;p&gt;To build static sites with Jekyll we need at least the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.ruby-lang.org/en/&quot;&gt;Ruby&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://rubygems.org/pages/download&quot;&gt;RubyGems&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are running Jekyll 2 and/or hosting at &lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt; (&lt;em&gt;as of January 2016 GitHub Pages running Jekyll 2.4.0&lt;/em&gt;), then you’ll also need:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://nodejs.org/en/&quot;&gt;NodeJS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.python.org/downloads/&quot;&gt;Python 2.7&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Our &lt;em&gt;virtual machine&lt;/em&gt; should also be configured to share a directory where all development happens with a &lt;em&gt;host machine&lt;/em&gt; to modify files from our host and have them automatically synced to the development VM. Another requirement is an ability to access Jekyll development server running inside a VM from the browser at host machine. This could be done by setting basic &lt;em&gt;port forwarding&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;vagrant&quot;&gt;Vagrant&lt;/h2&gt;
+
+&lt;p&gt;After &lt;a href=&quot;https://www.vagrantup.com/docs/installation/&quot;&gt;installing Vagrant&lt;/a&gt; we can initialize our project:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir our_project
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;our_project
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;vagrant init&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This will create a &lt;code&gt;Vagrantfile&lt;/code&gt; in the current directory. It contains our virtual machine’s configuration and provisioning settings. Let’s modify it for our purposes.&lt;/p&gt;
+
+&lt;h3 id=&quot;choosing-a-base-image-box&quot;&gt;Choosing a base image (box)&lt;/h3&gt;
+
+&lt;p&gt;Choose a desired box from the &lt;a href=&quot;https://atlas.hashicorp.com/boxes/search&quot;&gt;Atlas&lt;/a&gt;. As an example I want to create my environment on top of &lt;em&gt;Debian 8 “jessie”&lt;/em&gt; which corresponds to &lt;code&gt;debian/jessie64&lt;/code&gt; in the Atlas. We have to add this box to Vagrant:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;vagrant box add debian/jessie64&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and set it in &lt;code&gt;Vagrantfile&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;box&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;debian/jessie64&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;shared-folders&quot;&gt;Shared folders&lt;/h3&gt;
+
+&lt;p&gt;By default Vagrant shares directory with &lt;code&gt;Vagrantfile&lt;/code&gt; to &lt;code&gt;/vagrant&lt;/code&gt;. However we can manually set up some additional synced folders:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;config.vm.synced_folder &lt;span class=&quot;s2&quot;&gt;&amp;quot;src/&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;/srv/website&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The first parameter is a path to a directory on the host machine. If the path is relative, it is relative to the project root. The second parameter must be an absolute path of where to share the folder within the guest machine. This folder will be created (recursively, if it must) if it does not exist.&lt;/p&gt;
+
+&lt;h3 id=&quot;port-forwarding&quot;&gt;Port forwarding&lt;/h3&gt;
+
+&lt;p&gt;In order to access our Jekyll blog served by development server inside a VM using host machine web browser, we have to specify ports on the virtual machine to share via a port on the host machine:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;network&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:forwarded_port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;guest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here we specify &lt;code&gt;guest: 4000&lt;/code&gt; because Jekyll development server by default listens port 4000.&lt;/p&gt;
+
+&lt;h3 id=&quot;resource-allocation&quot;&gt;Resource allocation&lt;/h3&gt;
+
+&lt;p&gt;It is possible to specify how many RAM and CPU resources we allocate to our VM:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;provider&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;virtualbox&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cpus&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;basic-configuration&quot;&gt;Basic configuration&lt;/h3&gt;
+
+&lt;p&gt;Finally, let’s place our settings into &lt;code&gt;Vagrantfile&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Vagrant&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;box&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;debian/jessie64&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;synced_folder&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;src/&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/srv/website&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;network&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:forwarded_port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;guest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;provider&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;virtualbox&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cpus&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;provisioning&quot;&gt;Provisioning&lt;/h3&gt;
+
+&lt;p&gt;After basic configuration is done and we have a VM running vanilla Debian “jessie”, type &lt;code&gt;vagrant ssh&lt;/code&gt; to ssh into development machine. Now we can manually install all needed packages. But then every person who used Vagrant would have to do the same thing. To avoid such inconveniences Vagrant supports &lt;em&gt;automated provisioning&lt;/em&gt;. It is possible to write a shell script to configure the host. We also can use Ansible, Chef or Puppet.&lt;/p&gt;
+
+&lt;p&gt;Initially I’ve spent an hour to write a shell script with lots of &lt;code&gt;sudo apt-get install package_X&lt;/code&gt;, &lt;code&gt;gem install ...&lt;/code&gt;, &lt;code&gt;git clone ...&lt;/code&gt;, etc.&lt;/p&gt;
+
+&lt;p&gt;Launched it… &lt;br /&gt;
+and everything messed up!&lt;/p&gt;
+
+&lt;p&gt;After some debugging I realized that someone probably have already encountered such difficulties and that workaround should exist. And it does!&lt;/p&gt;
+
+&lt;h2 id=&quot;puphtet-to-the-rescue&quot;&gt;PuPHTet to the rescue!&lt;/h2&gt;
+
+&lt;p&gt;Basically it’s a &lt;a href=&quot;https://puphpet.com/&quot;&gt;web app&lt;/a&gt; which provides GUI with everything you need to setup a virtual machine for web development. After configuration steps are done we’ll be able to download a zip archive with all prerequisites for our project. The only thing remains is to extract the archive, open terminal and &lt;code&gt;cd&lt;/code&gt; to the extracted folder. Finally, &lt;code&gt;$ vagrant up&lt;/code&gt; and go grab some tea or coffee while our development VM is being prepared.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a look at basic configuration steps for the Jekyll project.&lt;/p&gt;
+
+&lt;h3 id=&quot;local-vm-details&quot;&gt;Local VM details&lt;/h3&gt;
+
+&lt;p&gt;Here we choose &lt;strong&gt;Deploy to Local Host&lt;/strong&gt; as VM will live at our host machine. &lt;strong&gt;VirtualBox&lt;/strong&gt; as virtualization provider (&lt;em&gt;PuPHPet now requires VirtualBox 5 as the minimum required version&lt;/em&gt;). And specifying desired &lt;strong&gt;Distro&lt;/strong&gt;, &lt;em&gt;Ubuntu Trusty x64&lt;/em&gt; is a default selection.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/vm_details.png&quot; alt=&quot;vm details&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;IP, allocated RAM and CPUs, &lt;a href=&quot;https://www.vagrantup.com/docs/networking/forwarded_ports.html&quot;&gt;Port Forwarding&lt;/a&gt; settings:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/ip_resources_port_fwd.png&quot; alt=&quot;net resources&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;By default Jekyll development server listens port 4000, however we can set any port via &lt;code&gt;--port&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll serve --port 5050&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;system-packages&quot;&gt;System Packages&lt;/h3&gt;
+
+&lt;p&gt;List here packages you need. Here is my selection:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/sys_packs.png&quot; alt=&quot;packages&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;web-servers-nginx-apache&quot;&gt;Web Servers: Nginx, Apache&lt;/h3&gt;
+
+&lt;p&gt;Deselect. We don’t need them.&lt;/p&gt;
+
+&lt;h3 id=&quot;languages&quot;&gt;Languages&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;PHP&lt;/strong&gt; - deselect.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ruby&lt;/strong&gt; is needed to install Jekyll. PuPHPet proposes installation via &lt;a href=&quot;https://rvm.io/&quot;&gt;RVM&lt;/a&gt; with latest available version of Ruby is 2.0.0 (&lt;em&gt;as of January 2016, Ruby 2.3.0 is available&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p&gt;Personally, I prefer &lt;a href=&quot;https://github.com/rbenv/rbenv&quot;&gt;rbenv&lt;/a&gt; combined with &lt;a href=&quot;http://bundler.io/&quot;&gt;Bundler&lt;/a&gt; which allows to install desired Jekyll version and all dependencies typing &lt;code&gt;bundle install&lt;/code&gt; in a folder with &lt;a href=&quot;http://bundler.io/v1.11/gemfile.html&quot;&gt;Gemfile&lt;/a&gt;. So, I’m skipping “&lt;em&gt;Ruby via RVM&lt;/em&gt;” and installing &lt;strong&gt;rbenv&lt;/strong&gt; with &lt;strong&gt;Bundler&lt;/strong&gt; manually after VM provisioning.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Python&lt;/strong&gt; is required if we are running Jekyll 2 and/or hosting our site at GitHub Pages (&lt;em&gt;as of January 2016 GitHub Pages running Jekyll 2.4.0&lt;/em&gt;). Python is also a dependency if we are using &lt;a href=&quot;http://pygments.org/&quot;&gt;Pygments&lt;/a&gt; syntax highlighter in Jekyll 3 instead of default &lt;a href=&quot;http://rouge.jneen.net/&quot;&gt;Rouge&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Node.js&lt;/strong&gt; is used as JavaScript runtime for Jekyll 2. Deselect for Jekyll 3 projects.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;HHVM&lt;/strong&gt; - deselect.&lt;/p&gt;
+
+&lt;h3 id=&quot;other-options&quot;&gt;Other options&lt;/h3&gt;
+
+&lt;p&gt;All other options for &lt;strong&gt;Databases&lt;/strong&gt;, &lt;strong&gt;Mail Tools&lt;/strong&gt;, &lt;strong&gt;Work Queues&lt;/strong&gt; and &lt;strong&gt;Search Servers&lt;/strong&gt; can be unchecked if you are not building something peculiar with Jekyll and 100% sure that some of these is a must.&lt;/p&gt;
+
+&lt;h3 id=&quot;create-archive&quot;&gt;Create Archive&lt;/h3&gt;
+
+&lt;p&gt;Now we can download a zip archive with resulted &lt;code&gt;Vagrantfile&lt;/code&gt; and Puppet provisioning scripts:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/download_archive.png&quot; alt=&quot;download page&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;add-your-dotfiles&quot;&gt;Add your dotfiles&lt;/h3&gt;
+
+&lt;p&gt;Unpack the archive. We can put desired &lt;code&gt;.bashrc&lt;/code&gt;, &lt;code&gt;.vimrc&lt;/code&gt;, &lt;code&gt;.gitconfig&lt;/code&gt;, etc into the &lt;code&gt;/puphpet/files/dot/&lt;/code&gt; folder and they will be carefully placed into a home folder of our development VM.&lt;/p&gt;
+
+&lt;h3 id=&quot;configyaml&quot;&gt;config.yaml&lt;/h3&gt;
+
+&lt;p&gt;All provisioning settings are available in &lt;code&gt;puphpet/config.yaml&lt;/code&gt; file. Here, we can modify virtual machine resource allocation, port forwarding, shared folders, installed packages, etc.&lt;/p&gt;
+
+&lt;p&gt;When all is ready, go into extracted folder and type &lt;code&gt;vagrant up&lt;/code&gt; to start provisioning.&lt;/p&gt;
+
+&lt;h3 id=&quot;check-our-setup&quot;&gt;Check our setup&lt;/h3&gt;
+
+&lt;p&gt;After VM provisioning is done, &lt;code&gt;vagrant ssh&lt;/code&gt; into VM and check that Jekyll is installed (&lt;em&gt;if Ruby installation via RVM is skipped, Jekyll and all its Ruby dependencies should be installed manually before these checks&lt;/em&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll --version
+jekyll 2.4.0  &lt;span class=&quot;c&quot;&gt;# depends on specified version&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# go to project dir (/var/www by default) and launch jekyll server:&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /var/www
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Also ensure that jekyll development server is available from the host machine by loading &lt;code&gt;http://127.0.0.1:4000&lt;/code&gt; in a browser.&lt;/p&gt;
+
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping Up&lt;/h2&gt;
+
+&lt;p&gt;That’s all we need! Now you can focus on your Jekyll project isolated inside pre-configured environment and forget about risks to damage something by installing or updating your software. If things went wrong it is always possible to recreate environment from scratch using our Vagrantfile and Puppet scripts.&lt;/p&gt;
+</content>
+    </entry>
   
     <entry>
       <author>
