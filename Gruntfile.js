@@ -20,6 +20,12 @@ module.exports = function(grunt) {
         shell: {
             jekyllBuild: {
                 command: 'bundle exec jekyll build'
+            },
+            httpServer: {
+                command: [
+                    'cd dist',
+                    'python -m SimpleHTTPServer 4000'
+                ].join('&&')
             }
         },
         cssmin: {
@@ -78,6 +84,20 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-build-control');
 
     // Register tasks.
-    grunt.registerTask('build', ['clean', 'shell:jekyllBuild', 'copy', 'cssmin', 'htmlmin']);
+    grunt.registerTask('dist-watch', ['shell:httpServer']);
+
     grunt.registerTask('deploy', ['buildcontrol']);
+
+    grunt.registerTask('build', [
+        'clean',
+        'shell:jekyllBuild',
+        'copy',
+        'cssmin',
+        'htmlmin'
+    ]);
+
+    grunt.registerTask('default', [
+        'build',
+        'dist-watch'
+    ]);
 };
