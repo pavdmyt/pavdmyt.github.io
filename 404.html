@@ -1,12 +1,20 @@
 ---
-layout: default
+layout: 404page
 title: "404: Page not found"
 permalink: 404.html
 sitemap:
   exclude: 'yes'
 ---
 
-<div class="page">
-  <h1 class="page-title">404: Page not found</h1>
-  <p class="lead">Sorry, we've misplaced that URL or it's pointing to something that doesn't exist. <a href="{{ site.baseurl }}/">Head back home</a> to try finding it again.</p>
+<div class="go-home">
+  <div class="page" style="font-family: 'Lucida Console', Monaco, monospace;">
+    <h1 class="page-title">
+      <span style="font-size:2.5em;">404</span>
+    </h1><br />
+    <p class="lead">Page not found!<br />
+      You'd better<a href="{{ site.baseurl }}/"> go home</a>.</p>
+  </div>
 </div>
+
+<!-- Adding the glitch effect -->
+<script> document.getElementsByTagName('body')[0].classList.add('glitch'); </script>

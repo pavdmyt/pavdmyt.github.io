@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  {% include head.html %}
+
+  <body>
+
+    <div class="masthead">
+      <div class="container">
+        <h3 class="masthead-title">
+          <a href="/" rel="bookmark" title="Home" class="masthead-link">
+            {{ site.title }}
+          </a> by
+          <a href="/about/" rel="bookmark" title="About" class="masthead-link">
+            {{ site.author.name }}
+          </a>
+          <small>{{ site.tagline }}</small>
+        </h3>
+      </div>
+    </div>
+
+    <div class="container content">
+      {{ content }}
+    </div>
+
+  </body>
+</html>
