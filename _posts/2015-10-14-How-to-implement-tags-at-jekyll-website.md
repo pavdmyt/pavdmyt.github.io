@@ -48,7 +48,7 @@ First, let's decide how our tags will look and feel. I've chosen [CSS tags by Wo
 
 This assumes that we have *tags page* in the root of our Jekyll project. Let's create dummy *tags page* for a time being:
 
-{% highlight console %}
+{% highlight bash %}
 
 $ cd your_jekyll_project
 $ touch tags.md

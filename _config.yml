@@ -8,6 +8,7 @@ tagline:             ''
 url:                 http://pavdmyt.com
 description:         'A place for Python, Math and maybe Science Fiction.'
 paginate:            10
+highlighter:         null
 
 # About/contact
 author:

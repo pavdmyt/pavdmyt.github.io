@@ -19,7 +19,7 @@ In functional programming iterating over few things simultaneously is called "[z
 
 As an example, lets consider iteration over two lists:
 
-{% highlight pycon %}
+{% highlight python %}
 >>> colors = ['red', 'green', 'blue']
 >>> vals = [55, 89, 144, 233]
 >>> for col, val in zip(colors, vals):
@@ -41,7 +41,7 @@ zip( ) and the power of unpacking
 
 Star `*` operator unpacks the sequence into positional arguments, as follows:
 
-{% highlight pycon %}
+{% highlight python %}
 >>> def puts(arg1, arg2):
 ...     print(arg1)
 ...     print(arg2)
@@ -62,7 +62,7 @@ Utilizing this property and what we have learned about `zip`, let's solve few pr
 
 ### group *x* and *y* components of the vectors into separate lists
 
-{% highlight pycon %}
+{% highlight python %}
 >>> dots = [(1, 3), (2, 4), (3, 5)]
 >>> x_lst, y_lst = zip(*dots)
 >>> x_lst
@@ -73,7 +73,7 @@ Utilizing this property and what we have learned about `zip`, let's solve few pr
 
 ### transpose a matrix
 
-{% highlight pycon %}
+{% highlight python %}
 >>> mtx = [(1, 2),
 ...        (3, 4),
 ...        (5, 6)]
@@ -83,14 +83,14 @@ Utilizing this property and what we have learned about `zip`, let's solve few pr
 
 ### rotate a matrix
 
-{% highlight pycon %}
+{% highlight python %}
 >>> zip(*mtx[::-1])
 [(5, 3, 1), (6, 4, 2)]
 {% endhighlight %}
 
 ### clustering a data series into n-length groups idiom
 
-{% highlight pycon %}
+{% highlight python %}
 >>> seq = range(1, 10)
 >>> zip(*[iter(seq)]*3)
 [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
@@ -98,7 +98,7 @@ Utilizing this property and what we have learned about `zip`, let's solve few pr
 
 Last is difficult at glance. Here is a [good explanation](http://stackoverflow.com/a/2233247) of what is actually happening. In short, the above code snippet is the same as:
 
-{% highlight pycon %}
+{% highlight python %}
 >>> x = iter(range(1, 10))
 >>> zip(x, x, x)
 [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
@@ -110,7 +110,7 @@ Try to play with it!
 
 Now, let's take a look on how `zip` can be used to manipulate `dict`. When you have *keys* and *values* stored in different places, `zip` provides a convenient way to glue them together into the single `dict`:
 
-{% highlight pycon %}
+{% highlight python %}
 >>> keys = ['spam', 'eggs']
 >>> vals = [42, 1729]
 >>> d = dict(zip(keys, vals))
@@ -120,7 +120,7 @@ Now, let's take a look on how `zip` can be used to manipulate `dict`. When you h
 
 We can invert (i.e. swap keys and values) our `dict` simply using `dict.values()` and `dict.keys()` methods:
 
-{% highlight pycon %}
+{% highlight python %}
 >>> inv_d = dict(zip(d.values(), d.keys()))
 >>> inv_d
 {1729: 'eggs', 42: 'spam'}

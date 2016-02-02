@@ -33,6 +33,7 @@ module.exports = function(grunt) {
                 files: [
                     {src: 'dist/public/css/poole.css', dest: 'dist/public/css/poole.css'},
                     {src: 'dist/public/css/lanyon.css', dest: 'dist/public/css/lanyon.css'},
+                    {src: 'dist/public/css/ir-black.css', dest: 'dist/public/css/ir-black.css'},
                 ]
             }
         },
