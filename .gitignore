@@ -45,3 +45,4 @@ output
 dist
 
 # My additions
+Gemfile.lock
