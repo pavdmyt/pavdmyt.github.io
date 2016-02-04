@@ -35,5 +35,7 @@ exclude:
   - output
   - Gruntfile.js
   - package.json
+  - tasks.py
+  - requirements.txt
   - node_modules
   - dist
