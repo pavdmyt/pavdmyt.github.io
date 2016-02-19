@@ -191,6 +191,11 @@ def post(title, drafts=False):
     front_matter.append('---')
     front_matter.append('layout: post')
     front_matter.append('title: {}'.format(title))
+    front_matter.append('description: ""')
+    front_matter.append('tags: ""')
+    front_matter.append('comments: true')
+    front_matter.append('permalink: ""')
+    front_matter.append('sitemap:\n  lastmod: {}'.format(date))
     front_matter.append('---')
 
     # Create post file and write Front Matter
