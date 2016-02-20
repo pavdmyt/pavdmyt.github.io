@@ -4,8 +4,146 @@
   <link type="application/atom+xml" href="http://pavdmyt.com/atom.xml" rel="self"/>
   <link href="http://pavdmyt.com/"/>
   <id>http://pavdmyt.com/</id>
-  <updated>2016-02-02T17:19:48Z</updated>
+  <updated>2016-02-20T12:02:29Z</updated>
   <rights type="text">Copyright © 2016 Pavel Dmytrenko. All rights reserved.</rights>
+  
+    <entry>
+      <author>
+        <name>Pavel Dmytrenko</name>
+        <email>mail@pavdmyt.com</email>
+      </author>
+      <title type="text">Simplifying and extending Jekyll CLI capabilities using Jtasks</title>
+      
+        <category term="jekyll"/>
+      
+        <category term="blogging"/>
+      
+        <category term="python"/>
+      
+      <link rel="alternate" type="text/html" href="http://pavdmyt.com/simplifying-extending-jekyll-cli-with-jtasks"/>
+      <id>http://pavdmyt.com/simplifying-extending-jekyll-cli-with-jtasks</id>
+      <published>2016-02-20T00:00:00Z</published>
+      <updated>2016-02-20T00:00:00Z</updated>
+      <content type="html">&lt;p&gt;When I started using Jekyll, serving a site was as simple as short &lt;code&gt;jekyll serve&lt;/code&gt;
+command. After creating a few first posts I discovered &lt;a href=&quot;http://jekyllrb.com/docs/drafts/&quot;&gt;drafts&lt;/a&gt;
+feature. Now serving a site command became &lt;code&gt;jekyll serve --drafts&lt;/code&gt;. Then Jekyll 3
+was released and I have figured out that
+&lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;
+not necessarily switched to building hosted sites using the latest Jekyll release
+(&lt;em&gt;now GitHub Pages supports Jekyll 3, but migration took a few months&lt;/em&gt;). I’m hosting
+&lt;a href=&quot;https://github.com/pavdmyt/pavdmyt.github.io&quot;&gt;this blog at GitHub&lt;/a&gt;,
+so I had to keep my development environment in align with environment used by GitHub. Otherwise, developing with Jekyll 3 locally and then pushing results to GitHub’s
+build server on Jekyll 2.4 may result in
+&lt;a href=&quot;http://jekyllrb.com/docs/upgrading/2-to-3/&quot;&gt;compatibility issues&lt;/a&gt;.
+Luckily, keeping environment in alignment with GitHub can be easily achieved by
+&lt;a href=&quot;https://help.github.com/articles/using-jekyll-with-pages/&quot;&gt;using &lt;code&gt;gh-pages&lt;/code&gt;&lt;/a&gt;
+gem.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;This adds another layer of complexity. Now we need a
+&lt;a href=&quot;http://bundler.io/&quot;&gt;Bundler&lt;/a&gt;
+to manage our environment. Commands inside a given &lt;em&gt;bundle&lt;/em&gt; are launched
+using &lt;code&gt;bundle exec&lt;/code&gt;. Now to serve a site including drafts, we have to type:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;$ bundle exec jekyll serve --drafts&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Not so convenient as in the beginning, huh?&lt;/p&gt;
+
+&lt;p&gt;In my
+&lt;a href=&quot;/jekyll-dev-env-via-vagrant-and-puphpet&quot;&gt;previous post&lt;/a&gt;
+I have showed set up steps and discussed advantages of using
+&lt;a href=&quot;https://www.vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt;
+to build development environment for Jekyll projects. In spite of advantages,
+Vagrant brings another layer of complexity. For me this resulted in creation
+of the &lt;code&gt;Makefile&lt;/code&gt; with the shortcuts for something like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;$ bundle exec jekyll serve --host 0.0.0.0 --drafts --force-polling&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This includes various combinations for different jekyll subcommands and options
+(&lt;em&gt;basic usage is&lt;/em&gt;: &lt;code&gt;jekyll &amp;lt;subcommand&amp;gt; [options]&lt;/code&gt;). Obviously &lt;code&gt;make&lt;/code&gt; is not the
+best way to manage this. It is very easy to get confused with different &lt;code&gt;make&lt;/code&gt;
+tasks.&lt;/p&gt;
+
+&lt;p&gt;So, I decided to write my own tool which will wrap common Jekyll commands, providing
+corresponding set of tasks easily modifiable via both long and short CLI flags.
+And if I’m writing my own tool, of course it will contain some &lt;em&gt;advanced&lt;/em&gt; features 😉.&lt;/p&gt;
+
+&lt;h2 id=&quot;meet-jtasks&quot;&gt;Meet Jtasks&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/pavdmyt/jtasks&quot;&gt;Jtasks&lt;/a&gt;
+(Jekyll tasks) is a collection of configurable
+&lt;a href=&quot;http://www.pyinvoke.org/&quot;&gt;Invoke&lt;/a&gt;
+tasks that provide simple, but powerful, interface to run both common and &lt;em&gt;advanced&lt;/em&gt;
+routines in your Jekyll projects.&lt;/p&gt;
+
+&lt;p&gt;With &lt;strong&gt;jtasks&lt;/strong&gt; you can:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;$ inv --list
+Available tasks:
+
+  build     Build the site.
+  clean     Clean the site.
+  doctor    Search site and print specific deprecation warnings.
+  list      List all posts.
+  notify    Notify various services about sitemap update.
+  post      Create a new post.
+  preview   Launches default browser for previewing generated site.
+  serve     Serve the site locally.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Basically it’s a collection of configurable tasks which are launched
+via &lt;code&gt;inv&lt;/code&gt; or &lt;code&gt;invoke&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;# using jtasks:
+$ invoke serve -bd
+
+# common way:
+$ bundle exec jekyll serve -d ./dist/ --host 0.0.0.0 --port 5000 --drafts&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;--destination&lt;/code&gt;, &lt;code&gt;--host&lt;/code&gt; and &lt;code&gt;--port&lt;/code&gt; are configured as a global variables at the &lt;em&gt;settings&lt;/em&gt; part of the script:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;# === Settings ===
+
+# Project directories
+_site_dest = &amp;quot;./dist/&amp;quot;        # Dir where Jekyll will generate site
+_posts_dest = &amp;quot;./_posts/&amp;quot;     # Dir with posts
+_drafts_dest = &amp;quot;./_drafts/&amp;quot;   # Dir with drafts
+
+# Global options
+_hostname = &amp;#39;0.0.0.0&amp;#39;         # Listen given hostname
+_port = &amp;#39;5000&amp;#39;                # Listen given port
+_bundle_exec = False          # Run commands with Bundler
+_fpolling = False             # Force watch to use polling
+_incremental = False          # Enable incremental build (Jekyll 3)
+
+# Post settings
+_post_ext = &amp;#39;.md&amp;#39;             # Post files extension
+
+# Notification settings (your sitemap location)
+_sitemap_url = &amp;#39;http://www.example.com/sitemap.xml&amp;#39;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This allows flexible setup of &lt;strong&gt;jtasks&lt;/strong&gt; on per-project basis eliminating the
+need to explicitly specify your Jekyll project’s constant values every time.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Jtasks&lt;/strong&gt; also contains help documentation for each task:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;$ inv --help serve
+Docstring:
+  Serve the site locally.
+
+  jekyll serve [options]
+
+Options:
+  -b, --bundle-exec         Run Jekyll development server via Bundler.
+  -d, --drafts              Process and render draft posts.
+  -f, --force-polling       Force watch to use polling.
+  -i, --incremental-build   Rebuild only posts and pages that have changed.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;For more details and usage examples check
+&lt;a href=&quot;https://github.com/pavdmyt/jtasks&quot;&gt;project’s page&lt;/a&gt;
+at GitHub.&lt;/p&gt;
+</content>
+    </entry>
   
     <entry>
       <author>
