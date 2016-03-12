@@ -4,8 +4,148 @@
   <link type="application/atom+xml" href="http://pavdmyt.com/atom.xml" rel="self"/>
   <link href="http://pavdmyt.com/"/>
   <id>http://pavdmyt.com/</id>
-  <updated>2016-02-20T12:02:29Z</updated>
+  <updated>2016-03-12T23:00:53Z</updated>
   <rights type="text">Copyright © 2016 Pavel Dmytrenko. All rights reserved.</rights>
+  
+    <entry>
+      <author>
+        <name>Pavel Dmytrenko</name>
+        <email>mail@pavdmyt.com</email>
+      </author>
+      <title type="text">A better PostgreSQL CLI experience with few psqlrc tweaks</title>
+      
+        <category term="PostgreSQL"/>
+      
+        <category term="databases"/>
+      
+        <category term="dotfiles"/>
+      
+      <link rel="alternate" type="text/html" href="http://pavdmyt.com/better-postgresql-cli-experience-with-psqlrc-tweaks"/>
+      <id>http://pavdmyt.com/Better-PostgreSQL-CLI-with-psqlrc-tweaks</id>
+      <published>2016-03-12T00:00:00Z</published>
+      <updated>2016-03-12T00:00:00Z</updated>
+      <content type="html">&lt;p&gt;From &lt;strong&gt;psql&lt;/strong&gt; &lt;em&gt;man page&lt;/em&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;div style=&quot;font-size:90%&quot;&gt;
+    &lt;code&gt;psql&lt;/code&gt; attempts to read and execute commands from the system-wide startup file (&lt;code&gt;psqlrc&lt;/code&gt;) and then the user&#39;s personal startup file (&lt;code&gt;~/.psqlrc&lt;/code&gt;), after connecting to the database but before accepting normal commands. These files can be used to set up the client and/or the server to taste, typically with &lt;code&gt;\set&lt;/code&gt; and &lt;code&gt;SET&lt;/code&gt; commands.&lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Like with any dotfiles we can utilize &lt;strong&gt;psqlrc&lt;/strong&gt; to customize &lt;strong&gt;psql&lt;/strong&gt; behavior,
+look and feel. First, let’s create &lt;strong&gt;psqlrc&lt;/strong&gt;. We have three options:&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h3 id=&quot;create-system-wide-psqlrc&quot;&gt;Create system-wide &lt;code&gt;psqlrc&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;It should be located inside PostgreSQL’s system configuration directory, which
+could be found using &lt;strong&gt;pg_config&lt;/strong&gt; tool:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;$ pg_config --sysconfdir
+/etc/postgresql-common&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Location may vary depending on your PostgreSQL installation. I’m running it at
+&lt;em&gt;Ubuntu 14.04&lt;/em&gt; and configuration files are located at &lt;code&gt;/etc/postgresql-common&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;users-personal-psqlrc&quot;&gt;User’s personal &lt;code&gt;psqlrc&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Just create it in your home directory:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;$ touch ~/.psqlrc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;version-specific-psqlrc&quot;&gt;Version-specific &lt;code&gt;psqlrc&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Man pages&lt;/em&gt; are cool:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;div style=&quot;font-size:90%&quot;&gt;
+    Both the system-wide startup file and the user&#39;s personal startup file can be made psql-version-specific by appending a dash and the PostgreSQL major or minor release number to the file name, for example ~/.psqlrc-9.2 or ~/.psqlrc-9.2.5. The most specific version-matching file will be read in preference to a non-version-specific file.&lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Depending on specific needs and preferences, choose location for &lt;strong&gt;psqlrc&lt;/strong&gt;
+that suits your needs most. Let’s move forward for the actual configuration.&lt;/p&gt;
+
+&lt;h2 id=&quot;actual-configuration&quot;&gt;Actual configuration&lt;/h2&gt;
+
+&lt;p&gt;Here is my &lt;code&gt;psqlrc&lt;/code&gt; with comments for the settings:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;\set QUIET 1
+
+-- Errors are ignored in interactive sessions,
+-- and not when reading script files.
+\set ON_ERROR_ROLLBACK interactive
+
+-- To have all queries display query times.
+\timing
+
+-- Verbose error reports.
+\set VERBOSITY verbose
+
+-- Use table format (with headers across the top) by default,
+-- but switch to expanded table format when there&amp;#39;s a lot of data,
+-- which makes it much easier to read.
+\x auto
+
+-- Use a separate history file per-database.
+\set HISTFILE ~/.psql_history- :DBNAME
+
+-- If a command is run more than once in a row,
+-- only store it once in the history.
+\set HISTCONTROL ignoredups
+
+-- By default, NULL displays as an empty space. Is it actually an empty
+-- string, or is it null? This makes that distinction visible.
+\pset null &amp;#39;(null)&amp;#39;
+
+\unset QUIET&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s take a look at some of the options in more details.&lt;/p&gt;
+
+&lt;h3 id=&quot;quiet-flag&quot;&gt;&lt;code&gt;QUIET&lt;/code&gt; flag&lt;/h3&gt;
+
+&lt;p&gt;At startup &lt;strong&gt;psql&lt;/strong&gt; executes commands from &lt;strong&gt;psqlrc&lt;/strong&gt;, which creates unnecessary
+output. In order to hide it, we set &lt;code&gt;QUIET&lt;/code&gt; flag at the top of &lt;strong&gt;psqlrc&lt;/strong&gt; and
+unset it at the bottom of the file.&lt;/p&gt;
+
+&lt;h3 id=&quot;onerrorrollback&quot;&gt;&lt;code&gt;ON_ERROR_ROLLBACK&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Allows statements in a &lt;em&gt;transaction&lt;/em&gt; to error without affecting the entire transaction.  Valid values are &lt;code&gt;on&lt;/code&gt;, &lt;code&gt;interactive&lt;/code&gt; or &lt;code&gt;off&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;From the &lt;a href=&quot;http://www.postgresql.org/docs/current/static/app-psql.html&quot;&gt;manual&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;div style=&quot;font-size:90%&quot;&gt;
+    &lt;p&gt;When set to &lt;code&gt;on&lt;/code&gt;, if a statement in a transaction block generates an error, the error is ignored and the transaction continues.&lt;/p&gt;
+    &lt;p&gt;When set to &lt;code&gt;interactive&lt;/code&gt;, such errors are only ignored in interactive sessions, and not when reading script files.&lt;/p&gt;
+    &lt;p&gt;When unset or set to &lt;code&gt;off&lt;/code&gt;, a statement in a transaction block that generates an error aborts the entire transaction.&lt;/p&gt;
+    &lt;p&gt;The error rollback mode works by issuing an implicit SAVEPOINT for you, just before each command that is in a transaction block, and then rolling back to the savepoint if the command fails.&lt;/p&gt;&lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I’m using the &lt;code&gt;interactive&lt;/code&gt; mode because this gives a chance to fix things while
+in interactive session without starting over.&lt;/p&gt;
+
+&lt;h3 id=&quot;timing&quot;&gt;&lt;code&gt;\timing&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Conveniently shows how long each SQL statement takes, in milliseconds:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;test=&amp;gt; SELECT * FROM weather
+       WHERE prpc IS NOT NULL;
+     city      | temp_lo | temp_hi | prpc |    date
+---------------+---------+---------+------+------------
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27
+ San Francisco |      41 |      55 |    0 | 1994-11-29
+(2 rows)
+
+Time: 0.652 ms&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping Up&lt;/h2&gt;
+
+&lt;p&gt;Given &lt;strong&gt;psqlrc&lt;/strong&gt; contains some basic tweaks for improving &lt;strong&gt;psql&lt;/strong&gt; experience.
+A lot more could be found at the &lt;em&gt;manpage&lt;/em&gt; or in the
+&lt;a href=&quot;http://www.postgresql.org/docs/current/static/app-psql.html&quot;&gt;official PostgreSQL documentation&lt;/a&gt;.
+Use it to adapt your settings for specific needs or workflows.&lt;/p&gt;
+</content>
+    </entry>
   
     <entry>
       <author>

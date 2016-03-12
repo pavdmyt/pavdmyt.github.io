@@ -3,6 +3,21 @@
   
     
     <url>
+      <loc>http://pavdmyt.com/better-postgresql-cli-experience-with-psqlrc-tweaks/</loc>
+      
+        <lastmod>2016-03-12</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.7</priority>
+      
+    </url>
+    
+  
+    
+    <url>
       <loc>http://pavdmyt.com/simplifying-extending-jekyll-cli-with-jtasks/</loc>
       
         <lastmod>2016-02-20</lastmod>
@@ -98,7 +113,7 @@
     <url>
       <loc>http://pavdmyt.com/about/</loc>
       
-        <lastmod>2016-02-20T12:02:29+02:00</lastmod>
+        <lastmod>2016-03-12T23:00:53+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -113,7 +128,7 @@
     <url>
       <loc>http://pavdmyt.com/archive/</loc>
       
-        <lastmod>2016-02-20T12:02:29+02:00</lastmod>
+        <lastmod>2016-03-12T23:00:53+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -130,7 +145,7 @@
     <url>
       <loc>http://pavdmyt.com/</loc>
       
-        <lastmod>2016-02-20T12:02:29+02:00</lastmod>
+        <lastmod>2016-03-12T23:00:53+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -147,7 +162,7 @@
     <url>
       <loc>http://pavdmyt.com/tags/</loc>
       
-        <lastmod>2016-02-20T12:02:29+02:00</lastmod>
+        <lastmod>2016-03-12T23:00:53+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
