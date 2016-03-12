@@ -16,7 +16,7 @@ I am also available on these sites:
 
 * [Twitter](https://twitter.com/pavdmyt)
 * [GitHub](https://github.com/pavdmyt)
-* [LinkedIn](https://ua.linkedin.com/pub/pavel-dmytrenko/b2/7a/312)
+* [LinkedIn](https://ua.linkedin.com/in/pavdmyt)
 
 
 *The website is written in Markdown and generated with [Jekyll](http://jekyllrb.com/).*
