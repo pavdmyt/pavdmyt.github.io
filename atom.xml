@@ -4,7 +4,7 @@
   <link type="application/atom+xml" href="http://pavdmyt.com/atom.xml" rel="self"/>
   <link href="http://pavdmyt.com/"/>
   <id>http://pavdmyt.com/</id>
-  <updated>2016-03-12T23:00:53Z</updated>
+  <updated>2016-03-15T20:43:13Z</updated>
   <rights type="text">Copyright © 2016 Pavel Dmytrenko. All rights reserved.</rights>
   
     <entry>
@@ -756,12 +756,9 @@ def is_prime(num):
     &amp;quot;&amp;quot;&amp;quot;
     Checks that given number is a prime number.
     &amp;quot;&amp;quot;&amp;quot;
-    if num &amp;lt;= 1:
-        return False
-    elif num &amp;lt;= 3:
-        return True
-    elif num % 2 == 0 or num % 3 == 0:
-        return False
+    if num &amp;lt;= 3:
+        return num == 2 or num == 3
+
     for i in range(5, int(math.sqrt(num)) + 1, 6):
         if num % i == 0 or num % (i + 2) == 0:
             return False
