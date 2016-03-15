@@ -6,7 +6,7 @@ tags: python math ProjectEuler algorithms
 comments: true
 permalink: python-solutions-project-euler-01-10
 sitemap:
-  lastmod: 2016-01-15
+  lastmod: 2016-03-15
 ---
 
 ![pic tag](/public/images/pyler-min.jpg){: .center-image }
@@ -264,12 +264,9 @@ def is_prime(num):
     """
     Checks that given number is a prime number.
     """
-    if num <= 1:
-        return False
-    elif num <= 3:
-        return True
-    elif num % 2 == 0 or num % 3 == 0:
-        return False
+    if num <= 3:
+        return num == 2 or num == 3
+
     for i in range(5, int(math.sqrt(num)) + 1, 6):
         if num % i == 0 or num % (i + 2) == 0:
             return False
