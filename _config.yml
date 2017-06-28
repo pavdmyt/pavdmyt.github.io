@@ -3,26 +3,26 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               Stochastic Stuff
+title:               TecnoPalma BLOG
 tagline:             ''
-url:                 http://pavdmyt.com
-description:         'A place for Python, Math and maybe Science Fiction.'
+url:                 
+description:         'Un lloc de tot un poc.'
 paginate:            10
 highlighter:         null
 
 # About/contact
 author:
-  name:              'Pavel Dmytrenko'
-  email:             'mail@pavdmyt.com'
+  name:              'Sergi navas'
+  email:             'sergi@tecnopalma.com'
   url:               ''
-  github:            'https://github.com/pavdmyt'
-  twitter:           'https://twitter.com/pavdmyt'
+  github:            'https://github.com/s3rgi'
+  twitter:           'https://twitter.com/s3rgi'
 
 # Custom vars
 version:             1.1.0
 
 github:
-  repo:              https://github.com/pavdmyt/pavdmyt.github.io
+  repo:              https://github.com/s3rgi/s3rgi.github.io
 
 excerpt_separator:   <!--more-->
 
